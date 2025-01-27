@@ -1,4 +1,3 @@
-from django.conf import settings
 from telebot import TeleBot, types
 from .models import TelegramUser
 

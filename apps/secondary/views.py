@@ -71,9 +71,7 @@ def genPlaning(request):
     block_data_11 = Block.objects.get(number=11)
     block_data_12 = Block.objects.get(number=12)
     block_data_11 = Block.objects.get(number=11)
-    print(f"\n\n\n\n 11 data {block_data_11} \n\n\n\n\n\n\n\n\n\n\n\n")
     block_data_12 = Block.objects.get(number=12)
-    print(f"\n\n\n\n\n\n\n 12 data{block_data_12} \n\n\n\n\n\n\n")
 
     block_data_13 = Block.objects.get(number=13)
     block_data_14 = Block.objects.get(number=14)
