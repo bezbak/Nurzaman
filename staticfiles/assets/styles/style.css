@@ -1458,7 +1458,7 @@ a {
   width: 100%;
   border: none;
   border-bottom: 1px solid #f6f6f695;
-  background: #242424;
+  /* background: #242424; */
   padding: 1rem 0;
   color: white;
   font-size: 16px;
