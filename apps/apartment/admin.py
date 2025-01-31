@@ -52,7 +52,7 @@ class ApartmentInline(admin.TabularInline):
 
 class ApartmentFilterAdmin(admin.ModelAdmin):
     list_filter = ('room','floor')
-    list_display = ('room','floor')
+    list_display = ('room','floor', 'info')
     search_fields = ('room','floor')
     inlines = [ApartmentInline]
 
