@@ -196,60 +196,57 @@ class Apartment(models.Model):
         verbose_name = "Добавить Квартиру"
         verbose_name_plural = "Добавить Квартиры"
 
-
-
-################################################################################################################################################################################
     def clean(self):
         # Проверяем, сколько уже есть квартир для данного этажа
         floor_count = Apartment.objects.filter(floor=self.floor).count()
 
         # Если уже выбрано 5 квартиры для этого этажа, выходим с ошибкой
-        print(f"\n\n\n\n\n\n\n {floor_count} \n\n\n\n\n\n\n\n")
         if floor_count > 5:
             raise ValidationError("Нельзя добавить более 5 квартир для данного этажа.")
 
     def save(self, *args, **kwargs):
         self.clean()
         super().save(*args, **kwargs)
-def convert_images_to_pdf(self):
-    pdf = FPDF()
-    added_images = False
+        
+    def convert_images_to_pdf(self):
+        pdf = FPDF()
+        added_images = False
 
-    for field in [self.layote, self.plan, self.object]:
-        if field:
-            img_path = os.path.join(settings.MEDIA_ROOT, field.name)
-            if os.path.exists(img_path):
-                try:
-                    img = Image.open(img_path)
-                    # Если изображение в формате WEBP, конвертируем его
-                    if img.format == 'WEBP':
-                        # Конвертируем в RGB, если изображение имеет альфа-канал
-                        if img.mode == 'RGBA':
-                            img = img.convert('RGB')
-                        # Сохраняем изображение во временный файл
-                        with tempfile.NamedTemporaryFile(suffix='.jpeg', delete=False) as tmp_img:
-                            img.save(tmp_img, format='JPEG')
-                            tmp_img_path = tmp_img.name
-                        
-                        # Добавляем страницу и изображение в PDF
-                        pdf.add_page()
-                        pdf.image(tmp_img_path, x=10, y=8, w=190)
-                        added_images = True
+        for field in [self.layote, self.plan, self.object]:
+            if field:
+                img_path = os.path.join(settings.MEDIA_ROOT, field.name)
+                if os.path.exists(img_path):
+                    try:
+                        img = Image.open(img_path)
+                        # Если изображение в формате WEBP, конвертируем его
+                        if img.format == 'WEBP':
+                            # Конвертируем в RGB, если изображение имеет альфа-канал
+                            if img.mode == 'RGBA':
+                                img = img.convert('RGB')
+                            # Сохраняем изображение во временный файл
+                            with tempfile.NamedTemporaryFile(suffix='.jpeg', delete=False) as tmp_img:
+                                img.save(tmp_img, format='JPEG')
+                                tmp_img_path = tmp_img.name
+                            
+                            # Добавляем страницу и изображение в PDF
+                            pdf.add_page()
+                            pdf.image(tmp_img_path, x=10, y=8, w=190)
+                            added_images = True
 
-                        # Удаляем временный файл изображения
-                        os.remove(tmp_img_path)
-                except IOError as e:
-                    print(f"Ошибка при открытии изображения {img_path}: {e}")
+                            # Удаляем временный файл изображения
+                            os.remove(tmp_img_path)
+                    except IOError as e:
+                        print(f"Ошибка при открытии изображения {img_path}: {e}")
 
-    # Сохраняем PDF только если были добавлены изображения
-    if added_images:
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as temp_pdf:
-            pdf.output(temp_pdf.name)
-            temp_pdf.seek(0)
-            self.pdf.save(f"{self.id}_apartment.pdf", File(temp_pdf), save=False)
+        # Сохраняем PDF только если были добавлены изображения
+        if added_images:
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as temp_pdf:
+                pdf.output(temp_pdf.name)
+                temp_pdf.seek(0)
+                self.pdf.save(f"{self.id}_apartment.pdf", File(temp_pdf), save=False)
 
-        # Удаляем временный PDF файл
-        os.remove(temp_pdf.name)
+            # Удаляем временный PDF файл
+            os.remove(temp_pdf.name)
     def save(self, *args, **kwargs):
         # Вызываем функцию конвертации перед сохранением экземпляра
         self.convert_images_to_pdf()

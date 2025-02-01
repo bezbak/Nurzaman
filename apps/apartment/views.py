@@ -33,7 +33,7 @@ def catalog(request):
     room_id = request.GET.get("room")
 
     if room_id:
-        apartments = apartments.filter(room__id=room_id)  
+        apartments = apartments.filter(room__number=room_id)  
 
     features = models.Osob.objects.all()
     feature_id = request.GET.get('Ben')  # Получаем ID выбранной особенности из запроса
