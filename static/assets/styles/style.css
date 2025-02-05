@@ -8780,7 +8780,7 @@ option:hover {
 }
 
 .st0 {
-  opacity: 0;
+  /* opacity: 0; */
   transition: 0.3s;
   position: relative;
 }

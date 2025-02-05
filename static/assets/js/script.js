@@ -198,9 +198,9 @@ addEventListener('DOMContentLoaded', (event) => {
 
 const nav = document.querySelector('nav');
 const onFloor = document.getElementById('onFloor');
-if (onFloor) {
-  const plan = document.getElementById('plan');
-  const onObjekt = document.getElementById('onObjekt');
+const plan = document.getElementById('plan');
+const onObjekt = document.getElementById('onObjekt');
+if (onFloor && plan && onObjekt) {
 
   const first = document.getElementById('first');
   const second = document.getElementById('second');
