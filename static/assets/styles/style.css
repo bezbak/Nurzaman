@@ -6211,6 +6211,14 @@ a {
   justify-content: space-between;
   width: 100%;
 }
+@media (max-width:390px) {
+  .headerFoot{
+    padding: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: -15px;
+  }
+}
 
 .headerFoot h1 {
   
